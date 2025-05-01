@@ -1,0 +1,375 @@
+ *{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+ }
+ section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background:radial-gradient(#fff,#f66e6e);; 
+    background: url(back.jpg);
+
+ }
+ 
+
+ .login-box{
+    position: relative;
+    width: 400px;
+    height: 450px;
+    background:transparent;
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: (15px);
+ }
+
+ h2{
+    font-size: 2rem;
+    color: black;
+    text-align: center;
+ }
+
+ .input-box{
+   position: relative;
+    width: 310px;
+margin: 30px;
+border-bottom: 2px solid #fff;
+
+}
+
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left:px;
+    transform: translateY(-50%);
+    background:transparent;
+    border:none;
+    outline:none;
+    font-size: 1rem;
+    color: #532a2a;
+    pointer-events:none ;
+transition: .5s;
+}
+
+ 
+.input-box input{
+     
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border:none;
+    outline:none;
+    font-size: 1rem;
+    color: #864f4f;
+    padding: 0 35px 0 5px ;
+ }
+
+ .forgot { 
+margin: 15px 0 15px; 
+font-size:.9em; 
+color: #fff; 
+display: flex; 
+justify-content: space-between; 
+}
+.forgot label input { 
+margin-right: 3px; 
+}
+.forgot a { 
+color: #fff; 
+text-decoration: none; 
+}
+.forgot a:hover {
+text-decoration: underline; }
+
+button { 
+    width: 100%; 
+    height: 40px; 
+    background:#eb9696; 
+    border: none; 
+    outline: none; 
+    border-radius: 40px; 
+    cursor: pointer; 
+    font-size: 1em; 
+    color: #000; 
+    font-weight: 500;
+}
+
+/*
+/* Navbar CSS 
+.navbar {
+    background: #dd7f7f;
+    padding: 25px !important;
+    
+    position: relative !important;
+    
+    display: flex !important;
+    
+    justify-content: center !important;
+    
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+    .navbar .logo-container {
+        width: 100px;
+        height: 100px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 110%;
+        transform: translateY(-50%);
+    }
+
+
+.logo-container img {
+    width: 55px;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+    .menu-toggle i {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .menu-toggle.active i {
+        transform: rotate(90deg);
+    }
+
+/* Menü Öðelerini Varsayýlan Olarak Gizle *
+.nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: white;
+    width: 100%;
+    padding: 10px 0;
+}
+
+    /* Menü Açýldýðýnda Görünür Hale Getir *
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 0 15px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+        font-size: 1.2rem;
+    }
+
+/* Login Icon *
+.login-icon {
+    font-size: 1.4rem;
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+    .login-icon a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        transition: color 0.3s;
+        padding: 8px 15px;
+        border-radius: 5px;
+        color: white;
+    }
+
+        .login-icon a:hover {
+            background: #cc0000;
+            color: white;
+        }*/
+
+
+.container {
+    display: flex;
+    justify-content: center; /* Yatayda ortalama */
+    align-items: center; /* Dikeyde ortalama */
+    height: 10vh; /* Sayfanýn tamamýný kapla */
+}
+
+.row {
+    display: flex;
+    justify-content: center; /* Yatayda ortalama */
+    width: 100%;
+}
+
+.appointment-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px; /* Geniþlik limiti */
+    text-align: center;
+    margin-bottom: 200px;
+    margin-right: 120px;
+}
+
+
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 15px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #c64343;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #ef5050;
+    }
+
+/* Onay Mesajý */
+.hidden {
+    display: none;
+}
+
+#confirmation {
+    background-color: #e4f9e4;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+
+
+/* Back to top butonu */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #8a92dc;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Hamburger Menü */
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: white;
+        width: 100%;
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 10px 0;
+            text-align: center;
+        }
+}
+
+/* Geçmiþ Randevular */
+.previous-appointments-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    ;
+    padding: 20px;
+    margin-bottom: 30px; /* Kutular arasýnda boþluk býrak */
+}
+
+
+
+    .previous-appointments-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+.table {
+    width: 100%;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    margin-top: 35px;
+}
+
+    .table th, .table td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #c64343;
+        color: white;
+    }
+
+    .table td {
+        background-color: #f9f9f9;
+    }
+/* Responsive Düzenleme */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

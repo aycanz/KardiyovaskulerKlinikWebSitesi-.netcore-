@@ -1,0 +1,918 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+:root {
+    --primary-color: #e63946;
+    --secondary-color: #457b9d;
+    --light-color: #f1faee;
+    --dark-color: #1d3557;
+    --accent-color: #a8dadc;
+    --border-color: #ddd;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Dashboard Styles */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.dashboard-title h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.dashboard-title p {
+    margin: 5px 0 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    color: #555;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #c64343;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
+}
+
+.user-dropdown {
+    position: relative;
+    cursor: pointer;
+    color: #555;
+}
+
+.user-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+    display: block;
+}
+
+.user-dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+    .user-dropdown-content a:hover {
+        background-color: #f5f5f5;
+    }
+
+    .user-dropdown-content a i {
+        margin-right: 10px;
+        width: 16px;
+    }
+
+/* Dashboard Cards */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.dashboard-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    color: white;
+    font-size: 1.3rem;
+}
+
+    .card-icon.primary {
+        background-color: #c64343;
+    }
+
+    .card-icon.secondary {
+        background-color: #3498db;
+    }
+
+    .card-icon.success {
+        background-color: #2ecc71;
+    }
+
+    .card-icon.warning {
+        background-color: #f39c12;
+    }
+
+.card-info h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-info p {
+    margin: 5px 0 0;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Dashboard Section */
+.dashboard-section {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 25px;
+    margin-bottom: 10px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+    .section-header h2 {
+        margin: 0;
+        font-size: 1.4rem;
+        color: #333;
+    }
+
+    .section-header a {
+        color: #c64343;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+    }
+
+        .section-header a:hover {
+            color: #a61425;
+            text-decoration: underline;
+        }
+
+/* Health Metrics Form */
+.health-metrics-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.metric-input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+    .metric-input-group label {
+        margin-bottom: 8px;
+        color: #555;
+        font-size: 0.9rem;
+    }
+
+    .metric-input-group input {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: border-color 0.3s;
+    }
+
+        .metric-input-group input:focus {
+            outline: none;
+            border-color: #c64343;
+        }
+
+.metric-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #c64343;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #a61425;
+    }
+/* Health Tips Section */
+.health-tips-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.health-tip-card {
+    padding: 1.5rem;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    border-left: 4px solid var(--primary-color);
+}
+
+    .health-tip-card h3 {
+        margin-bottom: 0.8rem;
+        color: var(--dark-color);
+        font-size: 1.1rem;
+    }
+
+    .health-tip-card p {
+        color: #555;
+        font-size: 0.9rem;
+    }
+
+.health-history-section {
+    margin-top: -10px;
+}
+
+/* Health History Chart */
+.health-history-chart {
+    height: 300px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        margin-top: 15px;
+        align-self: flex-end;
+    }
+
+    .health-metrics-form {
+        grid-template-columns: 1fr;
+    }
+
+    .metric-actions {
+        grid-column: 1;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card {
+        padding: 15px;
+    }
+}
+
+.container {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+
+
+.navbar {
+    background: #ff262633;
+    padding: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+    .navbar .logo-container {
+        width: 100px;
+        height: 100px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 110%;
+        transform: translateY(-50%);
+    }
+
+.logo-container img {
+    width: 55px;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+    .menu-toggle i {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .menu-toggle.active i {
+        transform: rotate(90deg);
+    }
+/* Menü Öğelerini Varsayılan Olarak Gizle */
+.nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: white;
+    width: 100%;
+    padding: 10px 0;
+}
+
+    /* Menü Açıldığında Görünür Hale Getir */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 0 15px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+        font-size: 1.2rem;
+    }
+
+
+.login-icon {
+    font-size: 1.4rem;
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+    .login-icon a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        transition: color 0.3s;
+        padding: 8px 15px;
+        border-radius: 5px;
+        color: white;
+    }
+
+        .login-icon a:hover {
+            background: #cc0000;
+            color: white;
+        }
+
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: white;
+        width: 100%;
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 10px 0;
+            text-align: center;
+        }
+}
+
+.icons.fa-user {
+    color: black;
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+/*hizmetttt*/
+
+.hizmet-box {
+    background-color: rgba(255, 255, 255, 0.95); /* Arka plan rengi */
+    padding: 3rem 2rem; /* İç boşluk */
+    border-radius: 1.5rem; /* Köşe yuvarlaklığı */
+    margin-bottom: 4rem; /* Alt boşluk */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+    transition: all 0.3s ease-in-out; /* Geçiş efekti */
+    margin-top: 5rem;
+    height: 50%; /* Yüksekliği eşitle */
+}
+
+.hizmet-section {
+    margin-top: -200px !important; /* Yukarıdan boşluk ekle */
+    margin-bottom: -100px !important;
+    padding: 9rem 0;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+/* Hover Durumu */
+.hizmet-box:hover {
+    transform: translateY(-10px); /* Yükselme efekti */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Daha belirgin gölge */
+}
+
+/* Servis Başlığı Stili */
+.hizmet-box .s-title {
+    font-size: 1.6rem; /* Başlık font boyutu */
+    text-transform: uppercase; /* Başlık harf büyüklüğü */
+    text-align: center; /* Başlık hizalama */
+    padding: .6rem 0; /* Başlık iç boşluğu */
+    color: #333; /* Başlık rengi */
+    font-weight: 700; /* Başlık kalınlığı */
+}
+
+/* Açıklama Metni Stili */
+.hizmet-box .s-description {
+    color: #666; /* Açıklama rengi */
+    font-size: 1.1rem; /* Açıklama font boyutu */
+    line-height: 1.6; /* Satır aralığı */
+    text-align: center; /* Açıklama hizalama */
+    margin-top: 1rem; /* Üst boşluk */
+}
+
+.hizmet-section .row {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Kutular arası boşluk */
+    flex-wrap: wrap; /* Küçük ekranlarda alt alta gelmesini sağlar */
+}
+
+.hizmet-box {
+    flex: 1;
+    min-width: 300px; /* Küçük ekranlar için minimum genişlik */
+    max-width: 350px; /* Maksimum genişlik belirleme */
+    text-align: center;
+}
+
+.hizmet-logo-container img {
+    width: 100px;
+}
+
+
+.intro-box {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 3rem 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    min-width: 900px;
+    max-width: 950px;
+    text-align: right; /* Sol hizalama */
+    min-height: 225px;
+    max-height: 275px;
+}
+
+.intro-section {
+    padding: 9rem 0;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+/* Hover Durumu */
+.intro-box:hover {
+    transform: translateY(-10px); /* Yükselme efekti */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Daha belirgin gölge */
+}
+
+#intro .container {
+    display: grid;
+    place-items: center; /* Hem yatay hem dikeyde ortalar */
+    height: 10vh;
+}
+
+
+
+.intro-logo-container {
+    display: flex;
+    justify-content: flex-start; /* Resmi sola hizalar */
+}
+/* Servis Başlığı Stili */
+.intro-box {
+    display: flex; /* Flex container yapıyoruz */
+    align-items: center; /* Yatayda ortala */
+    justify-content: flex-start; /* Başlık ve resmi sola hizala */
+}
+
+    .intro-box .intro-title {
+        font-size: 3.6rem; /* Başlık font boyutu */
+        text-transform: uppercase; /* Başlık harf büyüklüğü */
+        margin: 0 0 0 28rem; /* Başlık ve resim arasına boşluk ekleyebilirsin */
+        color: #333; /* Başlık rengi */
+        font-weight: 700; /* Başlık kalınlığı */
+        padding: 0; /* Padding'i sıfırladık, gerekirse daha fazla boşluk ekleyebilirsin */
+    }
+
+.intro-logo-container img {
+    width: 290px; /* Resmin genişliği */
+}
+
+.icons.fa-fa-user {
+    color: black;
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+
+
+.sg-box {
+    background-color: rgba(255, 255, 255, 0.95); /* Arka plan rengi */
+    padding: 2rem 2rem; /* İç boşluk */
+    border-radius: 1.5rem; /* Köşe yuvarlaklığı */
+    margin-bottom: 4rem; /* Alt boşluk */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+    transition: all 0.3s ease-in-out; /* Geçiş efekti */
+    margin-top: 5rem;
+}
+
+.ara-section {
+    padding: 9rem 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    margin-top: -220px;
+    ;
+}
+/* Hover Durumu */
+.hizmet-box:hover {
+    transform: translateY(-10px); /* Yükselme efekti */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Daha belirgin gölge */
+}
+
+/* Servis Başlığı Stili */
+.sg-box .s-title {
+    font-size: 1.6rem; /* Başlık font boyutu */
+    text-transform: uppercase; /* Başlık harf büyüklüğü */
+    text-align: center; /* Başlık hizalama */
+    padding: .6rem 0; /* Başlık iç boşluğu */
+    color: #333; /* Başlık rengi */
+    font-weight: 700; /* Başlık kalınlığı */
+}
+
+/* Açıklama Metni Stili */
+.sg-box .s-description {
+    color: #666; /* Açıklama rengi */
+    font-size: 1.1rem; /* Açıklama font boyutu */
+    line-height: 1.6; /* Satır aralığı */
+    text-align: center; /* Açıklama hizalama */
+    margin-top: 1rem; /* Üst boşluk */
+}
+
+.ara-section .row {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Kutular arası boşluk */
+    flex-wrap: wrap; /* Küçük ekranlarda alt alta gelmesini sağlar */
+}
+
+.sg-box {
+    flex: 1;
+    min-width: 700px; /* Küçük ekranlar için minimum genişlik */
+    max-width: 750px; /* Maksimum genişlik belirleme */
+    text-align: center;
+}
+
+.sg-logo-container img {
+    width: 100px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+button {
+    padding: 25px;
+    background-color: #a61425;
+    color: white;
+    border: none;
+    border-radius: 66px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #e28f8f;
+    }
+
+
+.ilaçlar-box {
+    background-color: rgba(255, 255, 255, 0.95); /* Arka plan rengi */
+    padding: 3rem 2rem; /* İç boşluk */
+    border-radius: 1.5rem; /* Köşe yuvarlaklığı */
+    margin-bottom: 4rem; /* Alt boşluk */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti */
+    transition: all 0.3s ease-in-out; /* Geçiş efekti */
+    margin-top: 5rem;
+}
+
+    /* Hover Durumu */
+    .ilaçlar-box:hover {
+        transform: translateY(-10px); /* Yükselme efekti */
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Daha belirgin gölge */
+    }
+
+    /* Servis Başlığı Stili */
+    .ilaçlar-box .s-title {
+        font-size: 1.6rem; /* Başlık font boyutu */
+        text-transform: uppercase; /* Başlık harf büyüklüğü */
+        text-align: center; /* Başlık hizalama */
+        padding: .6rem 0; /* Başlık iç boşluğu */
+        color: #333; /* Başlık rengi */
+        font-weight: 700; /* Başlık kalınlığı */
+    }
+
+    /* Açıklama Metni Stili */
+    .ilaçlar-box .s-description {
+        color: #666; /* Açıklama rengi */
+        font-size: 1.1rem; /* Açıklama font boyutu */
+        line-height: 1.6; /* Satır aralığı */
+        text-align: center; /* Açıklama hizalama */
+        margin-top: 1rem; /* Üst boşluk */
+    }
+
+
+.ilaçlar-box {
+    flex: 1;
+    min-width: 400px; /* Küçük ekranlar için minimum genişlik */
+    max-width: 450px; /* Maksimum genişlik belirleme */
+    min-height: 500px;
+    max-height: 550px;
+    text-align: center;
+}
+
+.sg-logo-container img {
+    width: 100px;
+}
+
+
+
+.ilaçlar h2 img {
+    width: 84px; /* Küçük bir boyut ayarladık */
+    height: auto; /* Oranları koruyarak ölçeklendirir */
+    margin-left: 8px; /* Yazı ile arasında boşluk bırakır */
+}
+
+.kayit-link {
+    text-decoration: none;
+    color: #0e0e0e;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+}
+
+    .kayit-link:hover {
+        color: #e28f8f;
+    }
+
+
+/* Responsive Design for Service Boxes */
+@media screen and (max-width: 768px) {
+    .hizmet-box, .intro-box, .sg-box, .ilaçlar-box {
+        min-width: 100%; /* Full-width on small screens */
+        max-width: 100%;
+    }
+
+    .hizmet-section .row, .ara-section .row {
+        display: flex;
+        flex-direction: column; /* Stack boxes vertically */
+        gap: 20px;
+    }
+
+    .hizmet-box, .intro-box, .sg-box, .ilaçlar-box {
+        min-width: 0%; /* Ensure good width for smaller screens */
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    form {
+        gap: 20px; /* Reduce gap between form fields for small screens */
+    }
+
+    input, button {
+        width: 100%; /* Full-width inputs and button on small screens */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .intro-title {
+        font-size: 2.2rem;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .intro-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .intro-logo-container img {
+        width: 100px; /* Adjust logo size for smaller screens */
+        margin-bottom: 1rem;
+    }
+}
+
+
+/* Health History Chart */
+.health-history-chart {
+    height: 300px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Appointments Section */
+.appointments-list {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .appointments-list th,
+    .appointments-list td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .appointments-list th {
+        background-color: #f5f5f5;
+        color: var(--dark-color);
+        font-weight: 600;
+    }
+
+    .appointments-list tr:last-child td {
+        border-bottom: none;
+    }
+
+    .appointments-list tr:hover {
+        background-color: #f9f9f9;
+    }
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+    .status-badge.upcoming {
+        background-color: rgba(46, 204, 113, 0.15);
+        color: var(--success-color);
+    }
+
+    .status-badge.completed {
+        background-color: rgba(69, 123, 157, 0.15);
+        color: var(--secondary-color);
+    }
+
+    .status-badge.cancelled {
+        background-color: rgba(231, 76, 60, 0.15);
+        color: var(--danger-color);
+    }
+
+.doctor-name {
+    display: flex;
+    align-items: center;
+}
+
+.doctor-avatar {
+    width: 30px;
+    height: 30px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+    .action-btn:hover {
+        color: var(--primary-color);
+    }
