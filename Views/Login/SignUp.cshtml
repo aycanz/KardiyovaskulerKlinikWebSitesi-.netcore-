@@ -1,0 +1,135 @@
+﻿@model EntityLayer.Concrete.Patient
+
+@{
+    Layout = null;
+}
+
+ <!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detaylı Kayıt Formu</title>
+    <link rel="stylesheet" href="~/KVH/css/SignUp.css">
+
+</head>
+<body>
+  <div class="container">
+    <div class="form-header">
+      <h1>Kayıt Formu</h1>
+      <p>Lütfen tüm bilgilerinizi eksiksiz doldurunuz</p>
+    </div>
+        <form method="POST" onsubmit="return validateForm()">
+            <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">Ad</label>
+          <input type="text" id="firstName" name="firstName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Soyad</label>
+          <input type="text" id="lastName" name="lastName" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="tcNo">T.C. Kimlik No</label>
+        <input type="text" id="tcNo" name="tcNo" maxlength="11" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Telefon Numarası</label>
+        <input type="tel" id="phone" name="phone" placeholder="05XX XXX XX XX" required>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="dateOfBirth">Doğum Tarihi</label>
+          <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="gender">Cinsiyet</label>
+          <select id="gender" name="gender" required>
+            <option value="" selected disabled>Seçiniz</option>
+            <option value="Erkek">Erkek</option>
+            <option value="Kadın">Kadın</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">E-posta Adresi</label>
+        <input type="email" id="email" name="email" placeholder="ornek@mail.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="address">Adres</label>
+        <textarea id="address" name="address" required></textarea>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password">Şifre</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+            </div>
+      
+      
+      <div class="terms">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">
+          Kişisel verilerimin işlenmesine ve kullanım koşullarına onay veriyorum.
+        </label>
+      </div>
+      
+      <button type="submit" class="signup-btn">Kayıt Ol</button>
+            <div id="formError" class="error-message"></div>
+
+    </form>
+    
+    <div class="login-link">
+      Hesabınız var mı? <a href="#">Giriş Yap</a>
+    </div>
+  </div>
+
+    <script>
+        function validateForm() {
+            const tcNo = document.getElementById("tcNo").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const errorDiv = document.getElementById("formError");
+
+            errorDiv.textContent = ""; // Önceki mesajı temizle
+
+            if (tcNo.length !== 11 || isNaN(tcNo)) {
+                errorDiv.textContent = "T.C. Kimlik No 11 haneli bir sayı olmalıdır.";
+                return false;
+            }
+
+            const phoneDigits = phone.replace(/\D/g, '');
+            if (phoneDigits.length !== 11) {
+                errorDiv.textContent = "Telefon numarası 11 haneli olmalıdır (başında 0 olacak şekilde).";
+                return false;
+            }
+
+            if (firstName.length < 2) {
+                errorDiv.textContent = "İsim en az 2 karakter olmalıdır.";
+                return false;
+            }
+
+            if (lastName.length < 2) {
+                errorDiv.textContent = "Soyisim en az 2 karakter olmalıdır.";
+                return false;
+            }
+
+            return true; // Form gönderilir
+        }
+    </script>
+
+
+
+</body>
+</html>

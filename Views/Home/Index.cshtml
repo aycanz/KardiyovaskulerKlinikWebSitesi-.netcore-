@@ -1,0 +1,310 @@
+﻿@using KVH.Models.ViewModels
+@model KVH.Models.ViewModels.DashBoardViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kardiyovasküler Hastalıklar Bilgi Sistemi</title>
+    <link rel="stylesheet" href="~/KVH/css/hp.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar Başlangıcı -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="#home">
+                <img src="~/KVH/img/Adsız.png" alt="Heart Logo">
+            </a>
+        </div>
+
+    </nav>
+    <!-- Navbar Bitişi -->
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h1>Merhaba, @Model.Patient.FirstName </h1>
+                <p>@DateTime.Now.ToString("dd MMMM yyyy, dddd") </p>
+            </div>
+            <div class="header-actions">
+                
+                    <span class="notification-icon"
+                          title="@(ViewBag.HasUpcomingAppointment == true ? "Yaklaşan randevunuz var" : "")">
+                        <i class="far fa-bell fa-lg"></i>
+                        @if (ViewBag.HasUpcomingAppointment == true)
+                        {
+                            <span class="notification-badge">1</span>
+                        }
+                    </span>
+
+                <div class="user-dropdown">
+                    <span><i class="far fa-user-circle fa-lg"></i></span>
+                    <div class="user-dropdown-content">
+                         <a href="@Url.Action("SignOut", "Login")"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Quick Stats -->
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <div class="card-icon primary">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="card-info">
+                    <h3>@(Model.HealthJournal?.HeartRate.ToString() ?? "Veri Yok") BPM</h3>
+                    <p>Son Nabız Ölçümü</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon secondary">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <div class="card-info">
+                    <h3>@(Model.HealthJournal?.BloodPressure ?? "Veri Yok")</h3>
+                    <p>Son Nabız Ölçümü</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon success">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="card-info">
+
+                    <h3>@(Model.UpcomingAppointment?.Date.ToString("dd MMMM") ?? "Randevu Yok")</h3>
+                    <p>Yaklaşan Randevu</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon warning">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="card-info">
+                    <h3>@(Model.HealthJournal?.BloodSugar.ToString() ?? "Veri Yok") mg/dL</h3>
+                    <p>Son Şeker Ölçümü</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Metrics Entry Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Günlük Sağlık Metriklerim</h2>
+                <a href="#">Geçmiş Kayıtları Gör</a>
+            </div>
+
+
+            <form asp-action="SaveHealthMetrics" asp-controller="Home" method="post" class="health-metrics-form">
+             
+
+                <div class="metric-input-group">
+                    <label for="tansiyon">Tansiyon (mm/Hg)</label>
+                    <input type="text" id="tansiyon" name="BloodPressure" placeholder="Örn: 120/80" required class="form-control" >
+                </div>
+
+                <div class="metric-input-group">
+                    <label for="nabiz">Nabız (BPM)</label>
+                    <input type="number" id="nabiz" name="HeartRate" placeholder="Örn: 75" required class="form-control">
+                </div>
+
+                <div class="metric-input-group">
+                    <label for="seker">Şeker (mg/dL)</label>
+                    <input type="number" id="seker" name="BloodSugar" placeholder="Örn: 90" required class="form-control">
+                </div>
+
+               @* <div class="metric-input-group">
+                    <label for="kilo">Kilo (kg)</label>
+                    <input type="number" id="kilo" name="Weight" placeholder="Örn: 75" value="@Model.HealthJournal?.Weight">
+                </div>
+                *@
+                <div class="metric-actions">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+
+        <section id="hizmet" class="hizmet-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title-box text-center">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Tahlil Sonuç -->
+                    <div class="col-md-4">
+                        <div class="hizmet-box">
+                            <div class="hizmet-content">
+                                <a href="/Result/Result">
+                                    <div class="hizmet-logo-container">
+                                        <img src="~/KVH/img/tahlil.png" alt="Tahlil Logo">
+                                    </div>
+                                    <h2 class="s-title">Tahlİl Sonuçlarım</h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Randevu Alın -->
+                    <div class="col-md-4">
+                        <div class="hizmet-box">
+                            <div class="hizmet-content">
+                                <a href="/yenirandevu/">
+                                    <div class="hizmet-logo-container">
+                                        <img src="~/KVH/img/randevu.png" alt="Randevu Logo">
+                                    </div>
+                                    <h2 class="s-title">Randevu Alın</h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Risk Analizi -->
+                    <div class="col-md-4">
+                        <div class="hizmet-box">
+                            <div class="hizmet-content">
+                                <a href="#risk">
+                                    <div class="hizmet-logo-container">
+                                        <img src="~/KVH/img/risk.png" alt="Risk Logo">
+                                    </div>
+                                    <h2 class="s-title">Rİsk Analİzİ</h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Appointments -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Randevularım</h2>
+                <a href="/yenirandevu/">Yeni Randevu Al</a>
+            </div>
+
+            <table class="appointments-list">
+                <thead>
+                    <tr>
+                        <th>Tarih & Saat</th>
+                        <th>Doktor</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var randevu in Model.Appointments)
+                    {
+                        <tr>
+                            <td>@randevu.Date.ToString("dd MMMM yyyy"),@(DateTime.Today.Add(randevu.Time).ToString("HH:mm"))</td>
+                            <td>
+                                <div class="doctor-name">
+                                    <div class="doctor-avatar">
+                                        @($"{randevu.Doctor.FirstName.Substring(0, 1).ToUpper()} {randevu.Doctor.LastName.Substring(0, 1).ToUpper()}")
+                                    </div>
+                                    Dr. @randevu.Doctor.FirstName @randevu.Doctor.LastName
+                                </div>
+                            </td>
+                            <td>
+                                <span class="status-badge @(randevu.Status == "Tamamlandı" ? "completed" : "upcoming")">
+                                    @(randevu.Status == "Tamamlandı" ? "Tamamlandı" : "Yaklaşan")
+                                </span>
+                            </td>
+                            <td>
+                                @if (randevu.Status == "Yaklaşan")
+                                {
+                                    <button class="action-btn iptal"
+                                            onclick="return confirmCancel(@randevu.AppointmentId)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+
+                                }
+                                else
+                                {
+                                    <button class="action-btn"><i class="fas fa-file-medical-alt"></i></button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Health History Chart -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Sağlık Geçmişim</h2>
+                <a href="#">Detaylı Analiz</a>
+            </div>
+
+            <div class="health-history-chart">
+                <!-- Grafik buraya gelecek -->
+                <p>Sağlık metrikleri grafik görünümü burada olacak</p>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Sağlık İpuçları</h2>
+             </div>
+
+            <div class="health-tips-container">
+                <div class="health-tip-card">
+                    <h3>Düzenli Hareket Edin</h3>
+                    <p>Günde en az 30 dakika orta yoğunlukta egzersiz yapmak, kalp sağlığınızı önemli ölçüde iyileştirebilir ve kardiyovasküler hastalık riskinizi azaltabilir.</p>
+                </div>
+
+                <div class="health-tip-card">
+                    <h3>Akdeniz Diyeti</h3>
+                    <p>Zeytinyağı, sebze, meyve ve tam tahıllardan zengin Akdeniz diyeti, kalp sağlığı için önerilm</p>
+                </div>
+            </div>
+        </div>
+        </main>
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        <div id="preloader"></div>
+
+        <!-- JavaScript Libraries -->
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/jquery/jquery-migrate.min.js"></script>
+        <script src="lib/popper/popper.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/counterup/jquery.waypoints.min.js"></script>
+        <script src="lib/counterup/jquery.counterup.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/typed/typed.min.js"></script>
+        <script src="main.js"></script>
+
+        <!-- Hamburger Menü JavaScript -->
+        <script>
+            $(document).ready(function () {
+                $(".menu-toggle").click(function () {
+                    $(".nav-links").toggleClass("active");
+                });
+            });
+
+        function confirmCancel(appointmentId) {
+            if (confirm('Bu randevuyu iptal etmek istediğinizden emin misiniz?')) {
+                window.location.href = '@Url.Action("CancelAppointment", "Randevu")' + '?id=' + appointmentId;
+            }
+        }
+
+        </script>
+
+</body>
+</html>

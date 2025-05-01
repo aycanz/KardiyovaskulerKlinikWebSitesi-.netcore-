@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevu Yönetim Sistemi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/KVH/css/site.css">
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="/anasayfa/">
+                <img src="~/KVH/img/Adsız.png" alt="Heart Logo">
+            </a>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <!-- Sol Menü -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Randevu Sistemi</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="/yenirandevu/" >Yeni Randevu</a></li>
+                <li><a href="/aktifrandevu/" class="menu-link @(ViewContext.RouteData.Values["action"].ToString() == "YeniRandevu" ? "active" : "")">Aktif Randevu</a></li>
+                <li><a href="/geçmişrandevu/" class="menu-link @(ViewContext.RouteData.Values["action"].ToString() == "YeniRandevu" ? "active" : "")">Geçmiş Randevu</a></li>
+            </ul>
+        </div>
+
+        <!-- Sağ İçerik Alanı -->
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

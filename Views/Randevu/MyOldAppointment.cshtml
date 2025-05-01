@@ -1,0 +1,42 @@
+﻿@using EntityLayer.Concrete
+@model List<Appointment>
+@{
+    ViewData["Title"] = "MyOldAppointment";
+    Layout = "~/Views/Shared/AppointmentLayout.cshtml";
+}
+
+<div class="page-header">
+    <h2>Geçmiş Randevular</h2>
+    <p>Geçmiş randevularınızın kaydını burada görebilirsiniz.</p>
+</div>
+
+<table>
+    <thead>
+        <tr> 
+            <th>Ad Soyad</th>
+            <th>Doktor</th>
+            <th>Tarih</th>
+            <th>Saat</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var randevu in Model)
+        {
+            <tr>
+                <td>@randevu.Patient.FirstName @randevu.Patient.LastName </td>
+                <td>@randevu.Doctor.FirstName @randevu.Doctor.LastName</td>
+                <td>@randevu.Date.ToString("dd.MM.yyyy")</td>
+                <td>@(DateTime.Today.Add(randevu.Time).ToString("HH:mm"))</td>
+                <td class="@(randevu.Status == "Tamamlandı" ? "completed" : "cancelled")">@randevu.Status</td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="5" style="text-align: center;">Geçmiş randevu bulunamadı.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

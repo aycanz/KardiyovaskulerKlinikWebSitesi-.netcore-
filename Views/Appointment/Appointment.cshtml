@@ -1,0 +1,303 @@
+﻿@{
+    ViewData["Title"] = "HomePage";
+    Layout = "~/Views/Shared/AppointmentLayout.cshtml";
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kardiyovasküler Hastalıklar Bilgi Sistemi</title>
+    <link rel="stylesheet" href="/KVH/css/hp.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+ 
+    <!-- Navbar Bitişi -->
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <h1>Merhaba, Ahmet</h1>
+                <p>14 Mart 2025, Cuma | Son giriş: 13 Mart, 15:30</p>
+            </div>
+
+            <div class="header-actions">
+                <span class="notification-icon">
+                    <i class="far fa-bell fa-lg"></i>
+                    <span class="notification-badge">3</span>
+                </span>
+
+                <div class="user-dropdown">
+                    <span><i class="far fa-user-circle fa-lg"></i></span>
+                    <div class="user-dropdown-content">
+                        <a href="#"><i class="fas fa-user-cog"></i> Profil Ayarları</a>
+                        <a href="#"><i class="fas fa-cog"></i> Hesap Ayarları</a>
+                        <a href="#"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Quick Stats -->
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <div class="card-icon primary">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="card-info">
+                    <h3>76 BPM</h3>
+                    <p>Son Nabız Ölçümü</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon secondary">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <div class="card-info">
+                    <h3>120/80</h3>
+                    <p>Son Tansiyon Ölçümü</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon success">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="card-info">
+                    <h3>18 Mart</h3>
+                    <p>Yaklaşan Randevu</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon warning">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="card-info">
+                    <h3>92 mg/dL</h3>
+                    <p>Son Şeker Ölçümü</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Metrics Entry Section -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Günlük Sağlık Metriklerim</h2>
+                <a href="#">Geçmiş Kayıtları Gör</a>
+            </div>
+
+            <form class="health-metrics-form">
+                <div class="metric-input-group">
+                    <label for="tansiyon">Tansiyon (mm/Hg)</label>
+                    <input type="text" id="tansiyon" name="tansiyon" placeholder="Örn: 120/80">
+                </div>
+
+                <div class="metric-input-group">
+                    <label for="nabiz">Nabız (BPM)</label>
+                    <input type="number" id="nabiz" name="nabiz" placeholder="Örn: 75">
+                </div>
+
+                <div class="metric-input-group">
+                    <label for="seker">Şeker (mg/dL)</label>
+                    <input type="number" id="seker" name="seker" placeholder="Örn: 90">
+                </div>
+
+                <div class="metric-input-group">
+                    <label for="kilo">Kilo (kg)</label>
+                    <input type="number" id="kilo" name="kilo" placeholder="Örn: 75">
+                </div>
+
+                <div class="metric-actions">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+
+        <section id="hizmet" class="hizmet-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title-box text-center">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Tahlil Sonuç -->
+                    <div class="col-md-4">
+                        <div class="hizmet-box">
+                            <div class="hizmet-content">
+                                <a href="#tahlil">
+                                    <div class="hizmet-logo-container">
+                                        <img src="tahlil.png" alt="Tahlil Logo">
+                                    </div>
+                                    <h2 class="s-title">Tahlİl Sonuçlarım</h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Randevu Alın -->
+                    <div class="col-md-4">
+                        <div class="hizmet-box">
+                            <div class="hizmet-content">
+                                <a href="#randevu">
+                                    <div class="hizmet-logo-container">
+                                        <img src="randevu.png" alt="Randevu Logo">
+                                    </div>
+                                    <h2 class="s-title">Randevu Alın</h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Risk Analizi -->
+                    <div class="col-md-4">
+                        <div class="hizmet-box">
+                            <div class="hizmet-content">
+                                <a href="#risk">
+                                    <div class="hizmet-logo-container">
+                                        <img src="risk.png" alt="Risk Logo">
+                                    </div>
+                                    <h2 class="s-title">Rİsk Analİzİ</h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Appointments -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Randevularım</h2>
+                <a href="#">Yeni Randevu Al</a>
+            </div>
+
+            <table class="appointments-list">
+                <thead>
+                    <tr>
+                        <th>Tarih & Saat</th>
+                        <th>Doktor</th>
+                        <th>Bölüm</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>18 Mart 2025, 14:30</td>
+                        <td>
+                            <div class="doctor-name">
+                                <div class="doctor-avatar">AS</div>
+                                Dr. Ayşe Sağlam
+                            </div>
+                        </td>
+                        <td>Kardiyoloji</td>
+                        <td><span class="status-badge upcoming">Yaklaşan</span></td>
+                        <td>
+                            <button class="action-btn"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="action-btn"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>25 Mart 2025, 10:15</td>
+                        <td>
+                            <div class="doctor-name">
+                                <div class="doctor-avatar">MY</div>
+                                Dr. Mehmet Yücel
+                            </div>
+                        </td>
+                        <td>Dahiliye</td>
+                        <td><span class="status-badge upcoming">Yaklaşan</span></td>
+                        <td>
+                            <button class="action-btn"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="action-btn"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5 Mart 2025, 09:00</td>
+                        <td>
+                            <div class="doctor-name">
+                                <div class="doctor-avatar">AS</div>
+                                Dr. Ayşe Sağlam
+                            </div>
+                        </td>
+                        <td>Kardiyoloji</td>
+                        <td><span class="status-badge completed">Tamamlandı</span></td>
+                        <td>
+                            <button class="action-btn"><i class="fas fa-file-medical-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Health History Chart -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Sağlık Geçmişim</h2>
+                <a href="#">Detaylı Analiz</a>
+            </div>
+
+            <div class="health-history-chart">
+                <!-- Grafik buraya gelecek -->
+                <p>Sağlık metriklerinizin grafik görünümü burada olacak</p>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Sağlık İpuçları</h2>
+                <a href="#">Tümünü Gör</a>
+            </div>
+
+            <div class="health-tips-container">
+                <div class="health-tip-card">
+                    <h3>Düzenli Hareket Edin</h3>
+                    <p>Günde en az 30 dakika orta yoğunlukta egzersiz yapmak, kalp sağlığınızı önemli ölçüde iyileştirebilir ve kardiyovasküler hastalık riskinizi azaltabilir.</p>
+                </div>
+
+                <div class="health-tip-card">
+                    <h3>Akdeniz Diyeti</h3>
+                    <p>Zeytinyağı, sebze, meyve ve tam tahıllardan zengin Akdeniz diyeti, kalp sağlığı için önerilm</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        <div id="preloader"></div>
+
+        <!-- JavaScript Libraries -->
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/jquery/jquery-migrate.min.js"></script>
+        <script src="lib/popper/popper.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/counterup/jquery.waypoints.min.js"></script>
+        <script src="lib/counterup/jquery.counterup.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/typed/typed.min.js"></script>
+        <script src="main.js"></script>
+
+        <!-- Hamburger Menü JavaScript -->
+        <script>
+            $(document).ready(function () {
+                $(".menu-toggle").click(function () {
+                    $(".nav-links").toggleClass("active");
+                });
+            });
+        </script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+﻿@model EntityLayer.Concrete.Appointment
+@{
+    ViewData["Title"] = "NewAppointment";
+    Layout = "~/Views/Shared/AppointmentLayout.cshtml";
+}
+<div class="page-header">
+    <h2>Yeni Randevu</h2>
+    <p>
+        Buradan yeni randevu oluşturabilirsiniz.
+    </p>
+</div>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<form asp-action="NewAppointment" asp-controller="Randevu" method="post" id="appointment-form">
+    <div class="form-group">
+        <label for="doctor">Doktor Seçin:</label>
+
+        @Html.DropDownListFor(x => x.DoctorId, (List<SelectListItem>)ViewBag.v, new { @class = "form-control", id = "doctor", required = "required" })
+    </div>
+    <div class="form-group">
+        <label for="date">Randevu Tarih:</label>
+        <select id="date" name="Date" required class="form-control">
+            <option value="">Tarih Seçiniz</option>
+            <!-- Müsait tarihler burada JavaScript ile doldurulacak -->
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="time">Randevu Saati:</label>
+        <select id="time" name="Time" required class="form-control">
+            <option value="">Saat Seçiniz</option>
+            <!-- Müsait saatler burada JavaScript ile doldurulacak -->
+        </select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Randevu Oluştur</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        // Doktor seçildiğinde müsait tarihleri getir
+        $('#doctor').on('change', function () {
+            var doctorId = $(this).val();
+            if (!doctorId) return;
+
+            // Tarih alanını sıfırla
+            $('#date').html('<option value="">Tarih Seçiniz</option>');
+            $('#time').html('<option value="">Saat Seçiniz</option>');
+
+            // AJAX ile müsait tarihleri getir
+            $.ajax({
+                url: '@Url.Action("GetAvailableDates", "Randevu")',
+                data: { doctorId: doctorId },
+                type: 'GET',
+                success: function (availableDates) {
+                    if (availableDates && availableDates.length > 0) {
+                        // Müsait tarihleri doldur
+                        $.each(availableDates, function (i, date) {
+                            var formattedDate = new Date(date);
+                            var day = formattedDate.getDate().toString().padStart(2, '0');
+                            var month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+                            var year = formattedDate.getFullYear();
+                            var displayDate = day + '/' + month + '/' + year;
+
+                            $('#date').append($('<option>', {
+                                value: date,
+                                text: displayDate
+                            }));
+                        });
+                    } else {
+                        $('#date').append($('<option>', {
+                            value: '',
+                            text: 'Müsait tarih bulunamadı'
+                        }));
+                    }
+                }
+            });
+        });
+
+        // Tarih seçildiğinde müsait saatleri getir
+        $('#date').on('change', function () {
+            var doctorId = $('#doctor').val();
+            var date = $(this).val();
+            if (!doctorId || !date) return;
+
+            // Saat alanını sıfırla
+            $('#time').html('<option value="">Saat Seçiniz</option>');
+
+            // AJAX ile müsait saatleri getir
+            $.ajax({
+                url: '@Url.Action("GetAvailableTimes", "Randevu")',
+                data: { doctorId: doctorId, date: date },
+                type: 'GET',
+                success: function (availableTimes) {
+                    if (availableTimes && availableTimes.length > 0) {
+                        // Müsait saatleri doldur
+                        $.each(availableTimes, function (i, time) {
+                            $('#time').append($('<option>', {
+                                value: time,
+                                text: time
+                            }));
+                        });
+                    } else {
+                        $('#time').append($('<option>', {
+                            value: '',
+                            text: 'Müsait saat bulunamadı'
+                        }));
+                    }
+                }
+            });
+        });
+    });
+</script>

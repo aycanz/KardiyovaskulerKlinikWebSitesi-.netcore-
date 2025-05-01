@@ -1,0 +1,15 @@
+﻿@using KVH.Models.ViewModels
+@model KVH.Models.ViewModels.PredictionResult
+@{
+    Layout = null;
+}
+
+
+<h2>Tahmin Sonucu</h2>
+
+<div>
+    <p><strong>Hastalık Riski:</strong> @(Model.Risk ? "Var" : "Yok")</p>
+    <p><strong>Olasılık:</strong> @Model.Probability.ToString("P2")</p>
+</div>
+
+<a href="@Url.Action("Index", "HeartDisease")">Yeni tahmin yap</a>

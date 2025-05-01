@@ -1,0 +1,220 @@
+﻿@using KVH.Models.ViewModels
+@model KVH.Models.ViewModels.RiskInputViewModel
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KVH Risk Tahmini</title>
+    <link rel="stylesheet" href="~/KVH/css/risk.css">
+
+  
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Kardiyovasküler Hastalık Risk Tahmini</h1>
+            <div class="header-logo">KVH</div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Demografik Bilgiler</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Klinik Ölçümler</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Kardiyak Değerlendirme</div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form method="post" asp-action="PredictRisk">
+                <div class="form-section">
+                    <h3>Demografik Bilgiler</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required-field" for="Age">Yaş</label>
+                            <input type="number" class="form-control" id="Age" name="Age" min="18" max="120" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required-field" for="Sex">Cinsiyet</label>
+                            <select class="form-control" id="Sex" name="Sex" required>
+                                <option value="">Seçiniz</option>
+                                <option value="M">Erkek</option>
+                                <option value="F">Kadın</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Klinik Ölçüm Değerleri</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required-field" for="RestingBP">Dinlenme Kan Basıncı (mmHg)</label>
+                            <input type="number" class="form-control" id="RestingBP" name="RestingBP" min="80" max="250" required>
+                            <div class="normal-range">Normal aralık: 90-120 mmHg</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required-field" for="Cholesterol">Kolesterol (mg/dL)</label>
+                            <input type="number" class="form-control" id="Cholesterol" name="Cholesterol" min="100" max="600" required>
+                            <div class="normal-range">Normal aralık: &lt;200 mg/dL</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required-field" for="FastingBS">Açlık Kan Şekeri (mg/dL)</label>
+                            <input type="number" class="form-control" id="FastingBS" name="FastingBS" min="70" max="300" required>
+                            <div class="normal-range">Normal aralık: 70-100 mg/dL</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required-field" for="MaxHR">Maksimum Kalp Hızı (atım/dakika)</label>
+                            <input type="number" class="form-control" id="MaxHR" name="MaxHR" min="60" max="220" required>
+                            <div class="normal-range">Yaşa göre değişken (220-yaş formülüyle hesaplanabilir)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Kardiyak Değerlendirme</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required-field" for="ChestPainType">Göğüs Ağrısı Tipi</label>
+                            <select class="form-control" id="ChestPainType" name="ChestPainType" required>
+                                <option value="">Seçiniz</option>
+                                <option value="TA">Tipik Angina</option>
+                                <option value="ATA">Atipik Angina</option>
+                                <option value="NAP">Non-Anjinal Ağrı</option>
+                                <option value="ASY">Asemptomatik</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required-field" for="RestingECG">Dinlenme EKG Sonucu</label>
+                            <select class="form-control" id="RestingECG" name="RestingECG" required>
+                                <option value="">Seçiniz</option>
+                                <option value="Normal">Normal</option>
+                                <option value="ST">ST-T Dalga Anomalisi</option>
+                                <option value="LVH">Sol Ventrikül Hipertrofisi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required-field" for="ExerciseAngina">Egzersiz Kaynaklı Angina</label>
+                            <select class="form-control" id="ExerciseAngina" name="ExerciseAngina" required>
+                                <option value="">Seçiniz</option>
+                                <option value="Y">Evet</option>
+                                <option value="N">Hayır</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required-field" for="ST_Slope">ST Segmenti Eğimi</label>
+                            <select class="form-control" id="ST_Slope" name="ST_Slope" required>
+                                <option value="">Seçiniz</option>
+                                <option value="Up">Yukarı</option>
+                                <option value="Flat">Düz</option>
+                                <option value="Down">Aşağı</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required-field tooltip" for="Oldpeak">
+                                ST Depresyonu (Oldpeak)
+                                <span class="tooltip-text">Egzersiz ile dinlenme arasındaki ST segment depresyonu (mm)</span>
+                            </label>
+                            <input type="number" class="form-control" id="Oldpeak" name="Oldpeak" step="0.1" min="0" max="10" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons-container">
+                    <button type="reset" class="btn" style="background-color:#6c757d">Temizle</button>
+                    <button type="submit" class="btn btn-success">Risk Tahminini Hesapla</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="footer">
+            &copy; 2025 Kardiyovasküler Hastalık Risk Tahmini Sistemi
+        </div>
+    </div>
+
+    <script>
+        // Form adımları arasında geçiş için JavaScript kodu
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            const sections = document.querySelectorAll('.form-section');
+            const progressFill = document.querySelector('.progress-bar-fill');
+            const inputs = document.querySelectorAll('input, select');
+            
+            // Bir alanın içeriği değiştiğinde adımların durumunu güncelle
+            inputs.forEach(input => {
+                input.addEventListener('change', updateSteps);
+            });
+            
+            function updateSteps() {
+                let completedSections = 0;
+                
+                // 1. Demografik kısım kontrolü
+                const demoFields = ['Age', 'Sex'];
+                if (demoFields.every(id => document.getElementById(id).value)) {
+                    completedSections = 1;
+                    steps[0].classList.add('active');
+                } else {
+                    steps[0].classList.add('active');
+                    steps[1].classList.remove('active');
+                    steps[2].classList.remove('active');
+                    progressFill.style.width = "33.33%";
+                    return;
+                }
+                
+                // 2. Klinik ölçümler kontrolü
+                const clinicalFields = ['RestingBP', 'Cholesterol', 'FastingBS', 'MaxHR'];
+                if (clinicalFields.every(id => document.getElementById(id).value)) {
+                    completedSections = 2;
+                    steps[1].classList.add('active');
+                } else {
+                    steps[1].classList.remove('active');
+                    steps[2].classList.remove('active');
+                    progressFill.style.width = "33.33%";
+                    return;
+                }
+                
+                // 3. Kardiyak değerlendirme kontrolü
+                const cardiacFields = ['ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope', 'Oldpeak'];
+                if (cardiacFields.every(id => document.getElementById(id).value)) {
+                    completedSections = 3;
+                    steps[2].classList.add('active');
+                } else {
+                    steps[2].classList.remove('active');
+                    progressFill.style.width = "66.66%";
+                    return;
+                }
+                
+                // İlerleme çubuğunu güncelle
+                progressFill.style.width = (completedSections / 3 * 100) + "%";
+            }
+            
+            // Sayfa yüklendiğinde adımları başlat
+            updateSteps();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kardiyovasküler Hastalıklar Bilgi Sistemi</title>
+    <link rel="stylesheet" href="~/KVH/css/clinic.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- Navbar Başlangıcı -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="/girişyap/" class="logo">
+                    <div class="logo-text">Kardiyo<span>Sağlık</span></div>
+                </a>
+
+                <button class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <ul class="nav-links">
+                    <li><a href="#anasayfa">Ana Sayfa</a></li>
+                    <li><a href="#hakkimizda">Hakkımızda</a></li>
+                    <li><a href="#hizmetler">Hizmetlerimiz</a></li>
+                    <li><a href="#doktorlar">Doktorlarımız</a></li>
+                    <li><a href="/girişyap/" class="login-btn">Giriş Yap</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="intro-section">
+        <div class="intro-content">
+            <h1>Kardiyovasküler Sağlığınız İçin Yanınızdayız</h1>
+            <p>Kalp sağlığınızı takip edin, risk faktörlerinizi öğrenin ve uzman doktorlarımızla iletişime geçin.</p>
+            <a href="#hizmetler" class="primary-button">Hizmetlerimiz</a>
+        </div>
+    </section>
+    <!-- about Section -->
+    <section id="hakkimizda" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kardiyovasküler Sağlığınız İçin Buradayız</h2>
+                <p>Modern teknoloji ve uzman kadromuzla kalp sağlığınızı korumak için yanınızdayız.</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="~/KVH/img/pexels-photo-28585010.webp" alt="Kardiyovasküler Sağlık">
+                </div>
+
+                <div class="about-text">
+                    <h3>Neden KardiyoSağlık Platformu?</h3>
+                    <p>Türkiye'nin en kapsamlı kardiyovasküler sağlık platformu olarak, en son teknolojilerle donatılmış sistemimiz ve alanında uzman doktorlarımızla size en iyi hizmeti sunuyoruz.</p>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Sürekli Takip</h4>
+                            <p>Sağlık verilerinizi anlık olarak takip ederek, risk faktörlerini erken dönemde tespit ediyoruz.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Uzman Kadro</h4>
+                            <p>Alanında deneyimli doktorlarımızla size özel tedavi planları hazırlıyoruz.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Dijital Çözümler</h4>
+                            <p>Sağlık verilerinizi her an her yerden kontrol edebilirsiniz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Services Section -->
+    <section id="hizmetler" class="hizmet-section">
+        <div class="section-title">
+            <h2>Hizmetlerimiz</h2>
+        </div>
+        
+        <div class="services-container">
+            <!-- Tahlil Sonuçları -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="~/KVH/img/tahlil.png" alt="Tahlil Logo">
+                </div>
+                <div class="service-content">
+                    <h3>Tahlil Sonuçlarım</h3>
+                    <p>Laboratuvar sonuçlarınızı görüntüleyin ve geçmiş verilerinizi takip edin.</p>
+                    <a href="/girişyap/" class="primary-button">Görüntüle</a>
+                </div>
+            </div>
+            
+            <!-- Randevu Alın -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="~/KVH/img/randevu.png" alt="Randevu Logo">
+                </div>
+                <div class="service-content">
+                    <h3>Randevu Alın</h3>
+                    <p>Uzman doktorlarımızdan hızlıca randevu alın ve sağlığınızı önceliklendirin.</p>
+                    <a href="/girişyap/" class="primary-button">Randevu Al</a>
+                </div>
+            </div>
+            
+            <!-- Risk Analizi -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="~/KVH/img/risk.png" alt="Risk Logo">
+                </div>
+                <div class="service-content">
+                    <h3>Risk Analizi</h3>
+                    <p>Kardiyovasküler risk faktörlerinizi öğrenin ve kişiselleştirilmiş öneriler alın.</p>
+                    <a href="/girişyap/" class="primary-button">Analiz Et</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Doctors Section Placeholder -->
+    <section id="doktorlar" class="doktorlar-section">
+        <div class="section-title">
+            <h2>Uzman Doktorlarımız</h2>
+        </div>
+        <div class="doktor-kartlari">
+            <!-- Şerife Acar -->
+            <div class="doktor-kart">
+                <div class="doktor-img">
+                 </div>
+                <div class="doktor-bilgi">
+                    <h3>Dr. Şerife Acar</h3>
+                    <p class="uzmanlık">Kardiyoloji Uzmanı</p>
+                    <p class="doktor-aciklama">Dr. Şerife Acar, kalp ve damar hastalıkları alanında 15 yıllık deneyime sahiptir.</p>
+                    <div class="iletisim-butonlari">
+                        <a href="/girişyap/" class="randevu-btn">Randevu Al</a>
+                     </div>
+                </div>
+            </div>
+
+            <!-- Şebnem Acar -->
+            <div class="doktor-kart">
+                <div class="doktor-img">
+                 </div>
+                <div class="doktor-bilgi">
+                    <h3>Dr. Şebnem Acar</h3>
+                    <p class="uzmanlık">Kardiyoloji Uzmanı</p>
+                    <p class="doktor-aciklama">Dr. Şebnem Acar, kalp ve damar hastalıkları alanında 25 yıllık deneyime sahiptir.</p>
+                    <div class="iletisim-butonlari">
+                        <a href="/girişyap/" class="randevu-btn">Randevu Al</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aylin Öz -->
+            <div class="doktor-kart">
+                <div class="doktor-img">
+                 </div>
+                <div class="doktor-bilgi">
+                    <h3>Dr. Aylin Öz</h3>
+                    <p class="uzmanlık">Kardiyoloji Uzmanı</p>
+                    <p class="doktor-aciklama">Dr. Aylin Öz, kalp ve damar hastalıkları alanında 25 yıllık deneyime sahiptir.</p>
+                    <div class="iletisim-butonlari">
+                        <a href="/girişyap/" class="randevu-btn">Randevu Al</a>
+                     </div>
+                </div>
+            </div>
+
+ </section>
+
+    <!-- Footer -->
+    <footer>
+       
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kardiyovasküler Hastalıklar Bilgi Sistemi. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- JavaScript -->
+    <script>
+        $(document).ready(function () {
+
+            // Hamburger Menu Toggle
+            $(".hamburger").click(function () {
+                $(".nav-links").toggleClass("active");
+                $(this).toggleClass("active");
+            });
+
+
+            // Hamburger Menu Toggle
+            $(".menu-toggle").click(function () {
+                $(".nav-links").toggleClass("active");
+                $(this).toggleClass("active");
+            });
+            
+            // Smooth Scroll
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                
+                $('html, body').animate({
+                    scrollTop: $($(this).attr('href')).offset().top
+                }, 500, 'linear');
+            });
+            
+            // Back to Top Button
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 300) {
+                    $('.back-to-top').addClass('active');
+                } else {
+                    $('.back-to-top').removeClass('active');
+                }
+            });
+            
+            $('.back-to-top').click(function() {
+                $('html, body').animate({scrollTop : 0}, 300);
+                return false;
+            });
+        });
+    </script>
+
+
+
+</body>
+</html>

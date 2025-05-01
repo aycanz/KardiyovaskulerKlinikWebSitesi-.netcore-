@@ -1,0 +1,43 @@
+﻿@using EntityLayer.Concrete
+@model List<Appointment>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AppointmentAll</title>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tarih</th>
+                <th>Hasta Adı</th>
+                <th>Doktor Adı</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AppointmentId</td>
+                    <td>@item.Date.ToShortDateString()</td>
+                    <td>@item.PatientId</td>
+                    <td>@item.Status</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</head>
+<body>
+</body>
+</html>

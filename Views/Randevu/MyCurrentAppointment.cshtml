@@ -1,0 +1,51 @@
+﻿@using EntityLayer.Concrete
+@model List<Appointment>
+@{
+    ViewData["Title"] = "MyCurrentAppointment";
+    Layout = "~/Views/Shared/AppointmentLayout.cshtml";
+}
+
+
+
+<div class="page-header">
+    <h2>Aktif Randevular</h2>
+    <p>Mevcut aktif randevularınızı burada görebilirsiniz.</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Ad Soyad</th>
+            <th>Doktor</th>
+            <th>Tarih</th>
+            <th>Saat</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+     
+      @foreach (var randevu in Model)
+        {
+            <tr>
+                <td>@randevu.Patient.FirstName @randevu.Patient.LastName </td>
+                <td>@randevu.Doctor.FirstName @randevu.Doctor.LastName</td>
+                <td>@randevu.Date.ToString("dd.MM.yyyy")</td>
+                <td>@($"{randevu.Time.Hours:D2}:{randevu.Time.Minutes:D2}")</td>
+                <td class="status-badges iptal">
+                  @*  <a href="@Url.Action("RandevuDuzenle", "Randevu", new { id = randevu.AppointmentId })" class="edit-btn">Düzenle</a>*@
+                    <a href="@Url.Action("CancelAppointment", "Randevu", new { id = randevu.AppointmentId })"
+                       class="status-badges iptal"
+                       onclick="return confirm('Bu randevuyu iptal etmek istediğinizden emin misiniz?')">
+                        İptal
+                    </a>
+            </tr>
+        } 
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="5" style="text-align: center;">Aktif randevu bulunamadı.</td>
+            </tr>
+        } 
+    </tbody>
+</table>
+

@@ -1,0 +1,217 @@
+﻿
+@{
+    Layout = null;   
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonuçlarım</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+          :root {
+            --primary-color: #e63946;
+            --secondary-color: #457b9d;
+            --light-color: #f1faee;
+            --dark-color: #1d3557;
+            --accent-color: #a8dadc;
+            --border-color: #ddd;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .filter-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .filter-section select, .filter-section input {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .filter-button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+/* Appointments Section */
+.appointments-list {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .appointments-list th,
+    .appointments-list td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .appointments-list th {
+        background-color: #f5f5f5;
+        color: var(--dark-color);
+        font-weight: 600;
+    }
+
+    .appointments-list tr:last-child td {
+        border-bottom: none;
+    }
+
+    .appointments-list tr:hover {
+        background-color: #f9f9f9;
+    }
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+    .status-badge.upcoming {
+        background-color: rgba(46, 204, 113, 0.15);
+        color: var(--success-color);
+    }
+
+    .status-badge.completed {
+        background-color: rgba(69, 123, 157, 0.15);
+        color: var(--secondary-color);
+    }
+
+    .status-badge.cancelled {
+        background-color: rgba(231, 76, 60, 0.15);
+        color: var(--danger-color);
+    }
+
+.doctor-name {
+    display: flex;
+    align-items: center;
+}
+
+.doctor-avatar {
+    width: 30px;
+    height: 30px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #e74c3c ;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+    .action-btn:hover {
+        color: var(--primary-color);
+    }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sonuçlarım</h1>
+        
+        <div class="filter-section">
+            <input type="date" id="dateFilter" placeholder="Tarih">
+            <select id="statusFilter">
+                <option value="">Tüm Sonuçlar</option>
+                <option value="normal">Normal</option>
+                <option value="warning">Uyarı</option>
+                <option value="alert">Risk</option>
+            </select>
+            <button class="filter-button" onclick="filterResults()">Filtrele</button>
+        </div>
+        
+         <!-- Upcoming Appointments -->
+         <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Randevularım</h2>
+             </div>
+            
+            <table class="appointments-list">
+                <thead>
+                    <tr>
+                        <th>Tarih </th>
+                        <th>Doktor</th>
+                       
+                        <th>Durum</th>
+                        <th>Sonuç</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>18 Mart 2025, 14:30</td>
+                        <td>
+                            <div class="doctor-name">
+                                <div class="doctor-avatar">AS</div>
+                                Dr. Ayşe Sağlam
+                            </div>
+                        </td>
+                        
+                        <td><span class="status-badge upcoming">Normal</span></td>
+                        <td>
+                            <button class="action-btn"><i class="fas fa-file-medical-alt"></i></button>
+
+                        </td>
+                    </tr>
+                  
+                    <tr>
+                        <td>5 Mart 2025, 09:00</td>
+                        <td>
+                            <div class="doctor-name">
+                                <div class="doctor-avatar">AS</div>
+                                Dr. Ayşe Sağlam
+                            </div>
+                        </td>
+                         <td><span class="status-badge completed">Riskli</span></td>
+                        <td>
+                            <button class="action-btn"><i class="fas fa-file-medical-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div
+    </div></body></html>
