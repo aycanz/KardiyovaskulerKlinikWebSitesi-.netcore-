@@ -9,8 +9,6 @@ hizmetlerinin dijital bir ortamda daha etkili ve düzenli yürütülmesini sağl
 
 Bu proje, ASP.NET Core ile geliştirilmiş olup MVC (Model-View-Controller) ve katmanlı mimari prensiplerine göre yapılandırılmıştır. Veri erişimi için Entity Framework Core (EF Core) kullanılmıştır.
 
-AJAX ile dinamik kullanıcı deneyimi sağlanmıştır,
-
 Identity altyapısı ile kullanıcı kimlik doğrulama ve yetkilendirme işlemleri gerçekleştirilmiştir,
 
 Makine öğrenmesi modelleri kullanılarak tahminleme/analiz özellikleri entegre edilmiştir,
