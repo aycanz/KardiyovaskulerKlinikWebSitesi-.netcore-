@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+<form asp-action="AddPrescription" method="post">
+    <div class="mb-3">
+        <label class="form-label">İlaç Adı</label>
+        <input type="text" class="form-control" name="DrugName" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Doz</label>
+        <input type="text" class="form-control" name="Dosage" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Kullanım Süresi</label>
+        <input type="text" class="form-control" name="Duration" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Açıklama</label>
+        <textarea class="form-control" name="Description" rows="3"></textarea>
+    </div>
+
+    <input type="hidden" name="PatientId" value="@Model.PatientId" />
+    <input type="hidden" name="DoctorId" value="@Model.DoctorId" />
+
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>

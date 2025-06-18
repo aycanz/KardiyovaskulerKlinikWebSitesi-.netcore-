@@ -1,0 +1,593 @@
+﻿@using EntityLayer.Concrete
+@using KVH.Models.ViewModels
+@model KVH.Models.ViewModels.DoctorPanelViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doktor Kontrol Paneli</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="~/KVH/css/doctorpanel.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="doctor-info">
+                <div class="doctor-avatar">
+                </div>
+                <h4 id="doctorName">@Model.Doctor.FirstName @Model.Doctor.LastName</h4>
+                <p id="doctorSpecialty">@Model.Doctor.Specialty</p>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li class="active"><i class="fas fa-home"></i> Ana Sayfa</li>
+                    <li><i class="fas fa-calendar-alt"></i> Randevular</li>
+                    <li>
+                        <a href="@Url.Action("DoctorSignOut", "Login")" style="color: white; text-decoration: none;">
+                            <i class="fas fa-sign-out-alt"></i> Çıkış
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h1>Doktor Kontrol Paneli</h1>
+                <div class="date-time">
+                    <div><i class="far fa-calendar-alt"></i> <span id="currentDate">@DateTime.Now.ToString("dd MMM yyyy")</span></div>
+                    <div><i class="far fa-clock"></i> <span id="currentTime">@DateTime.Now.ToString("HH:mm")</span></div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Bugünkü Randevular -->
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div><i class="fas fa-calendar-check"></i> Bugünkü Randevular</div>
+                            <span class="badge" id="appointmentCount">@Model.TodayAppointments.Count</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="appointment-list">
+                                @if (Model.TodayAppointments != null && Model.TodayAppointments.Any())
+                                {
+                                    @foreach (var appointment in Model.TodayAppointments)
+                                    {
+                                        <div class="appointment-item">
+                                            <div class="appointment-time">@appointment.Time.ToString(@"hh\:mm")</div>
+                                            <div>
+                                                <strong>@appointment.Patient.FirstName @appointment.Patient.LastName</strong>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="text-muted p-2">Bugün randevu bulunmamaktadır.</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aktif Hasta ve Lab Sonuçları -->
+                <div>
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-user-injured"></i> Aktif Hasta Bilgileri
+                        </div>
+                        <div class="card-body">
+                            @if (Model.ActivePatient != null)
+                            {
+                                <div class="patient-info">
+                                    <h5>@Model.ActivePatient.FirstName @Model.ActivePatient.LastName</h5>
+                                    <p><i class="fas fa-birthday-cake"></i> Doğum Tarihi: @Model.ActivePatient.DateOfBirth.ToShortDateString()</p>
+                                    <p><i class="fas fa-venus-mars"></i> Cinsiyet: @Model.ActivePatient.Gender</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center py-5 text-muted">
+                                    <h5>Şu anda aktif bir hasta bulunmamaktadır</h5>
+                                    <p>Hasta detayları burada görüntülenecektir</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-warning text-white">
+                            <i class="fas fa-flask"></i> Laboratuvar Sonuçları
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Results != null && Model.Results.Any())
+                            {
+                                @foreach (var result in Model.Results.OrderByDescending(r => r.Appointment.Date))
+                                {
+                                    <div class="d-flex justify-content-between align-items-center p-2 border-bottom">
+                                        <div>
+                                            <strong>@result.Appointment.Date.ToShortDateString()</strong>
+                                            <br>
+                                            <small class="text-muted">
+                                                Kolesterol: @result.Cholesterol mg/dL,
+                                                Tansiyon: @result.RestingBP mmHg,
+                                                Max Kalp Hızı: @result.MaxHR bpm
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-sm btn-info" onclick="showResultDetails(@result.ResultId)">
+                                                Detay Gör
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="text-center py-3 text-muted">
+                                    <p>Hasta seçildiğinde laboratuvar sonuçları burada görüntülenecektir</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Analizi ve Hızlı İşlemler -->
+                <div>
+                    <!-- Risk Analizi -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div><i class="fas fa-exclamation-triangle"></i> Risk Analizi</div>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.ActivePatientRisk != null)
+                            {
+
+                                var riskClass = Model.ActivePatientRisk.RiskLevel == "Yüksek Risk" ? "risk-high" : "risk-low";
+                                var riskIcon = Model.ActivePatientRisk.RiskLevel == "Yüksek Risk" ? "!" : "✓";
+
+                                <div class="risk-indicator">
+                                    <div class="risk-level @riskClass">@riskIcon</div>
+                                    <div>
+                                        <strong>@Model.ActivePatientRisk.RiskLevel</strong>
+                                        <small style="display: block; color: #9ca3af;">
+                                            Analiz Tarihi: @Model.ActivePatientRisk.AnalysisDate.ToString("dd.MM.yyyy HH:mm")
+                                        </small>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 1rem; padding: 1rem; background: #f8fafc; border-radius: 10px; font-size: 0.9rem; color: #64748b; border: 1px solid #e2e8f0;">
+                                    <strong style="color: #1e293b;">Açıklama:</strong><br>
+                                    @Model.ActivePatientRisk.Description
+                                </div>
+
+                                @if (Model.ActivePatientRisk.RiskLevel == "Yüksek Risk")
+                                {
+                                    <div style="margin-top: 1rem; padding: 1rem; background: #fef2f2; border-radius: 10px; font-size: 0.9rem; color: #dc2626; border: 1px solid #fecaca;">
+                                        <strong style="color: #991b1b;">Öneriler:</strong><br>
+                                        • Diyet programı başlatılmalı<br>
+                                        • Düzenli egzersiz önerilmeli<br>
+                                        • İlaç tedavisi değerlendirilmeli<br>
+                                        • Takip randevusu planlanmalı
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div style="margin-top: 1rem; padding: 1rem; background: #f0fdf4; border-radius: 10px; font-size: 0.9rem; color: #166534; border: 1px solid #bbf7d0;">
+                                        <strong style="color: #065f46;">Öneriler:</strong><br>
+                                        • Mevcut yaşam tarzını sürdürün<br>
+                                        • Düzenli kontroller yapın<br>
+                                        • Sağlıklı beslenmeye devam edin
+                                    </div>
+                                }
+
+                                <!-- Risk Geçmişi -->
+                                @if (Model.RiskHistory != null && Model.RiskHistory.Count > 1)
+                                {
+                                    <div style="margin-top: 1rem;">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleRiskHistory()">
+                                            Risk Geçmişini Göster (@(Model.RiskHistory.Count - 1) analiz)
+                                        </button>
+                                        <div id="riskHistory" style="display: none; margin-top: 0.5rem;">
+                                            @foreach (var risk in Model.RiskHistory.Skip(1))
+                                            {
+                                                <div style="padding: 0.5rem; margin: 0.25rem 0; background: #f9fafb; border-radius: 5px; font-size: 0.85rem;">
+                                                    <strong>@risk.AnalysisDate.ToString("dd.MM.yyyy")</strong> - @risk.RiskLevel
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="text-center py-3 text-muted">
+                                    <p>Aktif hastanın risk analizi bulunmamaktadır</p>
+                                    @if (Model.ActivePatient != null)
+                                    {
+                                        <a href="/HeartDisease/Index?appointmentId=@(Model.Results?.FirstOrDefault()?.AppointmentId ?? 0)" class="btn btn-sm btn-primary">
+                                            Risk Analizi Yap
+                                        </a>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div><i class="fas fa-tachometer-alt"></i> Hızlı İşlemler</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions">
+                                <div class="quick-action" data-bs-toggle="modal" data-bs-target="#prescriptionModal">
+                                    <i class="fas fa-notes-medical"></i>
+                                    <div>Reçete Yaz</div>
+                                </div>
+
+                                <div class="quick-action" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                    <i class="fas fa-file-medical"></i>
+                                    <div>Rapor Oluştur</div>
+                                </div>
+
+                              
+                                <div class="quick-action" data-bs-toggle="modal" data-bs-target="#examNoteModal">
+                                    <i class="fas fa-stethoscope"></i>
+                                    <div>Muayene Notu</div>
+                                </div>
+                             
+                           
+                          <div class="quick-action" data-bs-toggle="modal" data-bs-target="#newAppointmentModal">
+                                    <i class="fas fa-calendar-plus"></i>
+                                    <div>Yeni Randevu</div>
+                                </div>
+
+                           
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel">Sonuç Detayı</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body" id="modalResultContent">
+                    <p>Yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="prescriptionModalLabel">Reçete Yaz</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="prescriptionForm">
+                        <div class="mb-3">
+                            <label for="medicineName" class="form-label">İlaç Adı</label>
+                            <input type="text" class="form-control" id="medicineName" placeholder="Örn: Parol">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dosage" class="form-label">Dozaj</label>
+                            <input type="text" class="form-control" id="dosage" placeholder="Örn: Günde 2 kez">
+                        </div>
+                        <div class="mb-3">
+                            <label for="duration" class="form-label">Kullanım Süresi</label>
+                            <input type="text" class="form-control" id="duration" placeholder="Örn: 7 gün">
+                        </div>
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notlar</label>
+                            <textarea class="form-control" id="notes" rows="3" placeholder="İsteğe bağlı"></textarea>
+                        </div>
+                    </form>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary" onclick="previewPrescription()">Önizle</button>
+                        <button class="btn btn-success mt-3" onclick="downloadPrescriptionPDF()">PDF olarak indir</button>
+
+                    </div>
+
+                    <hr />
+                    <div id="prescriptionPreview" style="display:none;">
+                        <h5>Reçete Önizleme</h5>
+                        <p><strong>İlaç:</strong> <span id="previewName"></span></p>
+                        <p><strong>Dozaj:</strong> <span id="previewDosage"></span></p>
+                        <p><strong>Süre:</strong> <span id="previewDuration"></span></p>
+                        <p><strong>Not:</strong> <span id="previewNotes"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rapor Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportModalLabel">Rapor Oluştur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reportForm">
+                        <div class="mb-3">
+                            <label for="reportTitle" class="form-label">Rapor Başlığı</label>
+                            <input type="text" class="form-control" id="reportTitle" placeholder="Örn: Kardiyoloji Muayene Raporu">
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportContent" class="form-label">Rapor İçeriği</label>
+                            <textarea class="form-control" id="reportContent" rows="6" placeholder="Raporun içeriğini buraya yazın..."></textarea>
+                        </div>
+                    </form>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary" onclick="previewReport()">Önizle</button>
+                        <button type="button" class="btn btn-success" onclick="downloadReportAsPDF()">PDF İndir</button>
+
+                    </div>
+
+                    <hr />
+                    <div id="reportPreview" style="display:none;">
+                        <h5>Rapor Önizleme</h5>
+                        <h6><strong>Başlık:</strong> <span id="previewReportTitle"></span></h6>
+                        <p id="previewReportContent" style="white-space: pre-wrap;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Yeni Randevu Modal -->
+    <div class="modal fade" id="newAppointmentModal" tabindex="-1" aria-labelledby="newAppointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="newAppointmentForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newAppointmentModalLabel">Yeni Randevu Oluştur</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            @{
+                                var patients = ViewBag.Patients as List<EntityLayer.Concrete.Patient>;
+                            }
+
+                            @if (patients != null)
+                            {
+                                foreach (var patient in patients)
+                                {
+                                    <option value="@patient.PatientId">@patient.FirstName @patient.LastName</option>
+                                }
+                            }
+                            else
+                            {
+                                <option disabled>Hasta bulunamadı</option>
+                            }
+                            </div>
+
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Tarih</label>
+                            <input type="date" class="form-control" id="date" name="Date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="time" class="form-label">Saat</label>
+                            <input type="time" class="form-control" id="time" name="Time" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Oluştur</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Muayene Notu Modal -->
+    <div class="modal fade" id="examNoteModal" tabindex="-1" aria-labelledby="examNoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="examNoteModalLabel">Muayene Notu Yaz</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="examNoteText" class="form-control" rows="6" placeholder="Muayene notunuzu buraya yazınız..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" onclick="saveExamNote()">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Real-time clock update
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('tr-TR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('tr-TR', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+
+            document.getElementById('currentTime').textContent = timeString;
+            document.getElementById('currentDate').textContent = dateString;
+        }
+
+        // Update time every second
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Risk history toggle
+        function toggleRiskHistory() {
+            const historyDiv = document.getElementById('riskHistory');
+            if (historyDiv.style.display === 'none') {
+                historyDiv.style.display = 'block';
+            } else {
+                historyDiv.style.display = 'none';
+            }
+        }
+
+     
+
+        // Menu interactions
+        document.querySelectorAll('.menu li').forEach(item => {
+            item.addEventListener('click', function () {
+                document.querySelectorAll('.menu li').forEach(li => li.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Quick action animations
+        document.querySelectorAll('.quick-action').forEach(action => {
+            action.addEventListener('click', function () {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+
+
+        function showResultDetails(resultId) {
+            fetch(`/DoctorPanel/GetResultDetail?id=${resultId}`)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById("modalResultContent").innerHTML = html;
+                    const modal = new bootstrap.Modal(document.getElementById('resultModal'));
+                    modal.show();
+                });
+        }
+
+        function previewPrescription() {
+            const name = document.getElementById("medicineName").value;
+            const dosage = document.getElementById("dosage").value;
+            const duration = document.getElementById("duration").value;
+            const notes = document.getElementById("notes").value;
+
+            document.getElementById("previewName").innerText = name;
+            document.getElementById("previewDosage").innerText = dosage;
+            document.getElementById("previewDuration").innerText = duration;
+            document.getElementById("previewNotes").innerText = notes;
+
+            document.getElementById("prescriptionPreview").style.display = "block";
+        }
+        function previewReport() {
+            const title = document.getElementById("reportTitle").value;
+            const content = document.getElementById("reportContent").value;
+
+            document.getElementById("previewReportTitle").innerText = title;
+            document.getElementById("previewReportContent").innerText = content;
+
+            // Görünür yap
+            document.getElementById("reportPreview").style.display = "block";
+        }
+
+
+        function downloadReportAsPDF() {
+            const previewElement = document.getElementById("reportPreview");
+
+            if (!previewElement || previewElement.style.display === "none") {
+                alert("Lütfen önce raporu önizleyin.");
+                return;
+            }
+
+            // PDF ayarları
+            const opt = {
+                margin: 0.5,
+                filename: 'rapor.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            // PDF oluştur ve indir
+            html2pdf().set(opt).from(previewElement).save();
+        }
+
+        function downloadPrescriptionPDF() {
+            const element = document.getElementById("prescriptionPreview");
+
+            const opt = {
+                margin: 0.5,
+                filename: 'recete.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+                >
+            document.getElementById("appointmentForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+
+                fetch("/DoctorPanel/CreateAppointment", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(res => {
+                        if (res.ok) {
+                            alert("Randevu başarıyla oluşturuldu.");
+                            location.reload(); // Listeyi yenilemek için
+                        } else {
+                            alert("Bir hata oluştu.");
+                        }
+                    });
+            });
+
+    </script>
+
+    <style>
+        .risk-low {
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+
+        .risk-high {
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</body>
+</html>

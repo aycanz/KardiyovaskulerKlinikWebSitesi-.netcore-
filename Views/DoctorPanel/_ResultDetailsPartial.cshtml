@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+ 
+@model EntityLayer.Concrete.Result
+
+<div class="container p-3">
+    <h5 class="mb-3">Sonuç Detayları</h5>
+    <div class="row">
+        <div class="col-md-6"><strong>Göğüs Ağrısı Tipi:</strong> @Model.ChestPainType</div>
+        <div class="col-md-6"><strong>İstirahat Tansiyonu:</strong> @Model.RestingBP</div>
+        <div class="col-md-6"><strong>Kolesterol:</strong> @Model.Cholesterol</div>
+        <div class="col-md-6"><strong>Açlık Kan Şekeri (FBS):</strong> @Model.FastingBS</div>
+        <div class="col-md-6"><strong>İstirahat EKG:</strong> @Model.RestingECG</div>
+        <div class="col-md-6"><strong>Maksimum Kalp Hızı:</strong> @Model.MaxHR</div>
+        <div class="col-md-6"><strong>Egzersiz Anginası:</strong> @Model.ExerciseAngina</div>
+        <div class="col-md-6"><strong>ST Segment Çökmesi (Oldpeak):</strong> @Model.Oldpeak</div>
+        <div class="col-md-6"><strong>ST Eğimi:</strong> @Model.ST_Slope</div>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+﻿@model List<EntityLayer.Concrete.RiskResult>
+@using System.Globalization;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Analizleri</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="~/KVH/css/RiskPage.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2>Risk Analizleri</h2>
+                    </div>
+                    <div class="table-container">
+                        <table class="table modern-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-calendar-alt me-2"></i>Tarih</th>
+                                    <th><i class="fas fa-exclamation-triangle me-2"></i>Risk Durumu</th>
+                                    <th><i class="fas fa-percentage me-2"></i>Olasılık</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        string probabilityText = "0%";
+                                        int probabilityValue = 0;
+
+                                        if (!string.IsNullOrEmpty(item.Description))
+                                        {
+                                            var match = System.Text.RegularExpressions.Regex.Match(item.Description, @"Olasılık:\s*([%\d,\.]+)");
+                                            if (match.Success)
+                                            {
+                                                probabilityText = match.Groups[1].Value;
+                                                var numericValue = probabilityText.Replace("%", "").Replace(",", ".");
+
+                                                if (double.TryParse(numericValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double prob))
+                                                {
+                                                    // Eğer gelen değer zaten 0–100 arasıysa direkt al
+                                                    if (prob <= 100)
+                                                    {
+                                                        probabilityValue = (int)prob;
+                                                    }
+                                                    else
+                                                    {
+                                                        // Yok eğer ondalıklı geldiyse (örneğin 0.85), 100 ile çarp
+                                                        probabilityValue = (int)(prob * 100);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                         
+                                        <tr>
+                                            <td class="date-cell">@item.AnalysisDate.ToString("dd.MM.yyyy")</td>
+                                            <td>
+                                                @if (item.RiskLevel == "Yüksek Risk")
+                                                {
+                                                    <span class="risk-badge risk-high">
+                                                        <i class="fas fa-exclamation-circle"></i> Riskli
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="risk-badge risk-low">
+                                                        <i class="fas fa-check-circle"></i> Düşük Risk
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="probability-bar">
+                                                    <div class="probability-fill" style="width: @(probabilityValue)%;">
+                                                        <span class="probability-text">@probabilityText</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-4">
+                                            <i class="fas fa-chart-line fa-3x mb-3"></i>
+                                            <h5>Henüz Risk Analizi Bulunmamaktadır</h5>
+                                            <p>Sistem henüz herhangi bir risk analizi gerçekleştirmemiş.</p>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            setTimeout(() => {
+                const probabilityBars = document.querySelectorAll('.probability-fill');
+                probabilityBars.forEach((bar, index) => {
+                    const finalWidth = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = finalWidth;
+                    }, index * 200);
+                });
+            }, 500);
+        };
+    </script>
+
+</body>
+</html>

@@ -19,7 +19,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Kardiyovasküler Hastalık Risk Tahmini</h1>
+            <h1>KVH Hasta Bilgi Giriş Ekranı</h1>
             <div class="header-logo">KVH</div>
         </div>
 
@@ -45,12 +45,14 @@
 
         <div class="form-container">
             <form method="post" asp-action="PredictRisk">
+                <input type="hidden" name="AppointmentId" value="@ViewBag.AppointmentId" />
+
                 <div class="form-section">
                     <h3>Demografik Bilgiler</h3>
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label required-field" for="Age">Yaş</label>
-                            <input type="number" class="form-control" id="Age" name="Age" min="18" max="120" required>
+                            <input type="number" class="form-control" id="Age" name="Age" min="0" max="120" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label required-field" for="Sex">Cinsiyet</label>
@@ -68,25 +70,25 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label required-field" for="RestingBP">Dinlenme Kan Basıncı (mmHg)</label>
-                            <input type="number" class="form-control" id="RestingBP" name="RestingBP" min="80" max="250" required>
+                            <input type="number" class="form-control" id="RestingBP" name="RestingBP" min="0" max="500" required>
                             <div class="normal-range">Normal aralık: 90-120 mmHg</div>
                         </div>
                         <div class="form-group">
                             <label class="form-label required-field" for="Cholesterol">Kolesterol (mg/dL)</label>
-                            <input type="number" class="form-control" id="Cholesterol" name="Cholesterol" min="100" max="600" required>
+                            <input type="number" class="form-control" id="Cholesterol" name="Cholesterol" min="50" max="1000" required>
                             <div class="normal-range">Normal aralık: &lt;200 mg/dL</div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label required-field" for="FastingBS">Açlık Kan Şekeri (mg/dL)</label>
-                            <input type="number" class="form-control" id="FastingBS" name="FastingBS" min="70" max="300" required>
+                            <input type="number" class="form-control" id="FastingBS" name="FastingBS" min="0" max="1000" required>
                             <div class="normal-range">Normal aralık: 70-100 mg/dL</div>
                         </div>
                         <div class="form-group">
                             <label class="form-label required-field" for="MaxHR">Maksimum Kalp Hızı (atım/dakika)</label>
-                            <input type="number" class="form-control" id="MaxHR" name="MaxHR" min="60" max="220" required>
-                            <div class="normal-range">Yaşa göre değişken (220-yaş formülüyle hesaplanabilir)</div>
+                            <input type="number" class="form-control" id="MaxHR" name="MaxHR" min="0" max="1000" required>
+                            <div class="normal-range">Yaşa göre değişken 220-yaş </div>
                         </div>
                     </div>
                 </div>
@@ -146,7 +148,7 @@
 
                 <div class="buttons-container">
                     <button type="reset" class="btn" style="background-color:#6c757d">Temizle</button>
-                    <button type="submit" class="btn btn-success">Risk Tahminini Hesapla</button>
+                    <button type="submit" class="btn btn-success">Kaydet</button>
                 </div>
             </form>
         </div>
@@ -196,7 +198,6 @@
                     progressFill.style.width = "33.33%";
                     return;
                 }
-                
                 // 3. Kardiyak değerlendirme kontrolü
                 const cardiacFields = ['ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope', 'Oldpeak'];
                 if (cardiacFields.every(id => document.getElementById(id).value)) {

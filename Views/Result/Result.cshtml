@@ -1,4 +1,6 @@
 ﻿
+
+
 @{
     Layout = null;   
 }
@@ -149,69 +151,56 @@
 
         
     </style>
+
+
 </head>
 <body>
     <div class="container">
         <h1>Sonuçlarım</h1>
-        
-        <div class="filter-section">
-            <input type="date" id="dateFilter" placeholder="Tarih">
-            <select id="statusFilter">
-                <option value="">Tüm Sonuçlar</option>
-                <option value="normal">Normal</option>
-                <option value="warning">Uyarı</option>
-                <option value="alert">Risk</option>
-            </select>
-            <button class="filter-button" onclick="filterResults()">Filtrele</button>
-        </div>
-        
-         <!-- Upcoming Appointments -->
-         <div class="dashboard-section">
-            <div class="section-header">
-                <h2>Randevularım</h2>
-             </div>
-            
-            <table class="appointments-list">
-                <thead>
-                    <tr>
-                        <th>Tarih </th>
-                        <th>Doktor</th>
-                       
-                        <th>Durum</th>
-                        <th>Sonuç</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>18 Mart 2025, 14:30</td>
-                        <td>
-                            <div class="doctor-name">
-                                <div class="doctor-avatar">AS</div>
-                                Dr. Ayşe Sağlam
-                            </div>
-                        </td>
-                        
-                        <td><span class="status-badge upcoming">Normal</span></td>
-                        <td>
-                            <button class="action-btn"><i class="fas fa-file-medical-alt"></i></button>
 
-                        </td>
-                    </tr>
-                  
-                    <tr>
-                        <td>5 Mart 2025, 09:00</td>
-                        <td>
-                            <div class="doctor-name">
-                                <div class="doctor-avatar">AS</div>
-                                Dr. Ayşe Sağlam
-                            </div>
-                        </td>
-                         <td><span class="status-badge completed">Riskli</span></td>
-                        <td>
-                            <button class="action-btn"><i class="fas fa-file-medical-alt"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
+  
+
+        <!-- Upcoming Appointments -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Sonuçlarım</h2>
+            </div>
+            @if (Model.Count > 0)
+            {
+                <table class="appointments-list">
+                    <thead>
+                        <tr>
+                            <th style="width: 35%;">Doktor</th>
+                            <th style="width: 40%;">Tarih</th>
+                            <th style="width: 25%;">Sonuç</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <div class="doctor-name">
+
+                                <td class="patient-name">@item.Doctor.FirstName @item.Doctor.LastName</td>
+                </div>
+                <td class="appointment-time">@item.Date.ToString("dd MMMM yyyy"), @(DateTime.Today.Add(item.Time).ToString("HH:mm"))</td>
+                <td>
+                    <a href="@Url.Action("Detail", "Result", new { appointmentId = item.AppointmentId })" class="action-btn">
+                        <i class="fas fa-file-medical-alt"></i> Sonuç Görüntüle
+                    </a>
+                </td>
+                </tr>
+                        }
+            </tbody>
             </table>
-        </div
-    </div></body></html>
+            }
+            else
+            {
+            <div class="no-appointments">
+                Bugün için randevu bulunmamaktadır.
+            </div>
+            }
+    </div>
+</body>
+</html>
+
