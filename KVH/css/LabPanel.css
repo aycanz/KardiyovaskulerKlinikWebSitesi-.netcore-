@@ -1,0 +1,101 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+    .appointments-table th {
+        background-color: #3498db;
+        color: white;
+        padding: 15px 20px;
+        text-align: left;
+        font-weight: 500;
+    }
+
+    .appointments-table td {
+        padding: 15px 20px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .appointments-table tr:hover {
+        background-color: #f1f8ff;
+    }
+
+    .appointments-table tr:last-child td {
+        border-bottom: none;
+    }
+
+.btn-primary {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+.patient-name {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.appointment-time {
+    color: #7f8c8d;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .appointments-table th,
+    .appointments-table td {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
+
+/* Boş tablo durumu */
+.no-appointments {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d;
+}
